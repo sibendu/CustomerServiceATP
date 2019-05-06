@@ -1,0 +1,49 @@
+box:
+ id: openjdk
+ ports:
+   - "8080"
+
+# Build definition
+build:
+  # The steps that will be executed on build
+  steps: 
+    - internal/docker-build:  
+        dockerfile: Dockerfile
+        image-name: sibendudas/customerserviceatp
+    - internal/docker-push:
+        image-name: sibendudas/customerserviceatp
+        username: $DOCKER_USERNAME
+        password: $DOCKER_PASSWORD
+        tag:  $DOCKER_TAG
+        repository: $DOCKER_REPO
+        registry: $DOCKER_REGISTRY    
+
+deploy:
+  steps:
+    - script:
+        name: "Visualise Kubernetes config"
+        code: cat deploy.yaml
+    
+    - kubectl:
+        name: delete existing deployment
+        server: $KUBERNETES_MASTER
+        #username: $KUBERNETES_USERNAME
+        token: $KUBERNETES_TOKEN
+        insecure-skip-tls-verify: true
+        command: delete deployment  customerserviceatp --ignore-not-found=true
+        
+    - kubectl:
+        name: delete existing deployment
+        server: $KUBERNETES_MASTER
+        #username: $KUBERNETES_USERNAME
+        token: $KUBERNETES_TOKEN
+        insecure-skip-tls-verify: true
+        command: delete service  customerserviceatp --ignore-not-found=true
+                
+    - kubectl:
+        name: deploy to kubernetes
+        server: $KUBERNETES_MASTER
+        #username: $KUBERNETES_USERNAME
+        token: $KUBERNETES_TOKEN
+        insecure-skip-tls-verify: true
+        command: apply -f deploy.yaml

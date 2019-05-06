@@ -1,0 +1,36 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: customerserviceatp
+spec:
+  selector:
+    matchLabels:
+      app: customerserviceatp
+  replicas: 1 # deployment runs 1 pods  matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: customerserviceatp
+    spec:
+      containers:
+      - name: customerserviceatp
+        image: sibendudas/customerserviceatp
+        imagePullPolicy: Always
+        ports:
+        - name: customerserviceatp
+          containerPort: 8080 #Endpoint is at port 5000 in the container
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: customerserviceatp
+spec:
+  type: LoadBalancer #Exposes the service as a node port
+  ports:
+  - port: 8080
+    targetPort: 8080
+    #nodePort: 30000
+    protocol: TCP
+  selector:
+    app: customerserviceatp

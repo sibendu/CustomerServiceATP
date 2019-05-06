@@ -1,5 +1,5 @@
 box:
- id: openjdk
+ id: java
  ports:
    - "8080" 
 

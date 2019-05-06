@@ -45,7 +45,7 @@ public class DataSourceSample {
 	// final static String
 	// DB_URL="jdbc:oracle:thin:@wallet_dbname?TNS_ADMIN=/Users/test/wallet_dbname";
 	// In case of windows, use the following URL
-	final static String DB_URL = "jdbc:oracle:thin:@sddemoatp_high?TNS_ADMIN=D:\\workshop\\atp\\CustomerServiceATP\\Wallet_sddemoatp";
+	final static String DB_URL = "jdbc:oracle:thin:@sddemoatp_high?TNS_ADMIN=/Wallet_demoatp";// D:\\workshop\\atp\\CustomerServiceATP\\Wallet_sddemoatp";
 	final static String DB_USER = "admin";
 	final static String DB_PASSWORD = "PAssword_12#";
 

@@ -10,7 +10,7 @@ build:
     - script:
       name: run gradle
       code: |
-        ./gradlew clean build
+        sudo ./gradlew clean build
     - internal/docker-build:  
         dockerfile: Dockerfile
         image-name: sibendudas/customerserviceatp

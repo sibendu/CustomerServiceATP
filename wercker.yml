@@ -7,6 +7,10 @@ box:
 build:
   # The steps that will be executed on build
   steps: 
+    - java/gradle:
+        task: build
+        version: 4.5.1
+        cache_project_cache: true
     - internal/docker-build:  
         dockerfile: Dockerfile
         image-name: sibendudas/customerserviceatp

@@ -8,6 +8,9 @@ build:
   # The steps that will be executed on build
   steps: 
     - script:
+            name: give permission
+            code: chmod 777 ./gradlew
+    - script:
       name: run gradle
       code: |
         ./gradlew --full-stacktrace -q --project-cache-dir=$WERCKER_CACHE_DIR build
